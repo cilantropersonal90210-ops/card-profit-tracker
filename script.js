@@ -37,7 +37,18 @@ function updateDashboard() {
 }
 
 function renderCards() {
-    addCardButton.addEventListener
+    const cardList = document.getElementById("cardList");
+
+    if (cards.length === 0) {
+        cardList.innerHTML = `
+            <div class="empty-message">
+                <h3>No cards yet</h3>
+                <p>Click "Add Card" to add your first card.</p>
+            </div>
+        `;
+
+        updateDashboard();
+        return;
     }
 
     cardList.innerHTML = "";
@@ -49,25 +60,32 @@ function renderCards() {
 
         cardElement.innerHTML = `
             <h3>${card.name}</h3>
+
             <p>Buy Price: $${Number(card.buyPrice).toFixed(2)}</p>
+
             <p>
                 Status:
                 <span class="card-status ${
-                    card.status === "sold" ? "status-sold" : "status-for-sale"
-            }">
-                ${card.status === "sold" ? "Sold" : "For Sale"}
-        </span>
-    </p>
+                    card.status === "sold"
+                        ? "status-sold"
+                        : "status-for-sale"
+                }">
+                    ${card.status === "sold" ? "Sold" : "For Sale"}
+                </span>
+            </p>
+
             <p>Worth Grading: ${card.grading}</p>
 
             ${
                 card.status === "sold"
                     ? `
                         <p>Sale Price: $${Number(card.salePrice).toFixed(2)}</p>
-                        <p>Profit: $${(
-                            Number(card.salePrice) -
-                            Number(card.buyPrice)
-                        ).toFixed(2)}</p>
+                        <p class="card-profit">
+                            Profit: $${(
+                                Number(card.salePrice) -
+                                Number(card.buyPrice)
+                            ).toFixed(2)}
+                        </p>
                     `
                     : `
                         <button onclick="sellCard('${card.id}')">
@@ -76,10 +94,10 @@ function renderCards() {
                     `
             }
 
-            <button onclick="editCard('$card.id}')">
+            <button onclick="editCard('${card.id}')">
                 Edit
             </button>
-            
+
             <button onclick="deleteCard('${card.id}')">
                 Delete
             </button>
@@ -146,6 +164,39 @@ function sellCard(id) {
 
     card.status = "sold";
     card.salePrice = salePrice;
+
+    saveCards();
+    renderCards();
+}
+
+function editCard(id) {
+    const card = cards.find(card => card.id === id);
+
+    if (!card) {
+        return;
+    }
+
+    const newName = prompt("Card name:", card.name);
+
+    if (newName === null) {
+        return;
+    }
+
+    const newBuyPrice = prompt("Buy price:", card.buyPrice);
+
+    if (newBuyPrice === null) {
+        return;
+    }
+
+    const newGrading = prompt("Worth grading? (yes, maybe, or no):", card.grading);
+
+    if (newGrading === null) {
+        return;
+    }
+
+    card.name = newName.trim();
+    card.buyPrice = Number(newBuyPrice);
+    card.grading = newGrading.toLowerCase().trim();
 
     saveCards();
     renderCards();
