@@ -18,10 +18,20 @@ function updateDashboard() {
     document.getElementById("cardsSold").textContent = soldCards.length;
     document.getElementById("cardsForSale").textContent = forSaleCards.length;
 
+    const totalSales = soldCards.reduce((total, card) => {
+        return total + card.salePrice;
+    }, 0);
+
     const totalProfit = soldCards.reduce((total, card) => {
         return total + (card.salePrice - card.buyPrice);
     }, 0);
 
+    document.getElementById("totalSpent").textXontent =
+        `$${totalSpent.toFixed(2)}`;
+
+    document.getElementById("totalSales").textContent =
+        `$${totalSales.toFixed(2)}`;
+    
     document.getElementById("totalProfit").textContent =
         `$${totalProfit.toFixed(2)}`;
 }
