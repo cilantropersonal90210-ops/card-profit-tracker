@@ -10,38 +10,30 @@ function saveCards() {
 }
 
 function updateDashboard() {
-    const cardsTracked = document.getElementById("cardsTracked");
-    const cardsSold = document.getElementById("cardsSold");
-    const cardsForSale = document.getElementById("cardsForSale");
-    const totalSpent = document.getElementById("totalSpent");
-    const totalSales = document.getElementById("totalSales");
-    const totalProfit = document.getElementById("totalProfit");
+    document.getElementById("cardsTracked").textContent = cards.length;
 
     const soldCards = cards.filter(card => card.status === "sold");
     const forSaleCards = cards.filter(card => card.status === "for-sale");
 
-    const spent = cards.reduce((total, card) => {
-        return total + Number(card.buyPrice || 0);
-    }, 0);
+    document.getElementById("cardsSold").textContent = soldCards.length;
+    document.getElementById("cardsForSale").textContent = forSaleCards.length;
 
-    const sales = soldCards.reduce((total, card) => {
-        return total + Number(card.salePrice || 0);
-    }, 0);
+    let spent = 0;
+    let sales = 0;
 
-    const profit = soldCards.reduce((total, card) => {
-        return total + (
-            Number(card.salePrice || 0) -
-            Number(card.buyPrice || 0)
-        );
-    }, 0);
+    cards.forEach(card => {
+        spent += Number(card.buyPrice) || 0;
 
-    cardsTracked.textContent = cards.length;
-    cardsSold.textContent = soldCards.length;
-    cardsForSale.textContent = forSaleCards.length;
+        if (card.status === "sold") {
+            sales += Number(card.salePrice) || 0;
+        }
+    });
 
-    totalSpent.textContent = `$${spent.toFixed(2)}`;
-    totalSales.textContent = `$${sales.toFixed(2)}`;
-    totalProfit.textContent = `$${profit.toFixed(2)}`;
+    const profit = sales - spent;
+
+    document.getElementById("totalSpent").textContent = "$" + spent.toFixed(2);
+    document.getElementById("totalSales").textContent = "$" + sales.toFixed(2);
+    document.getElementById("totalProfit").textContent = "$" + profit.toFixed(2);
 }
 
 function renderCards() {
