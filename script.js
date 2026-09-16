@@ -76,6 +76,10 @@ function renderCards() {
                     `
             }
 
+            <button onclick="editCard('$card.id}')">
+                Edit
+            </button>
+            
             <button onclick="deleteCard('${card.id}')">
                 Delete
             </button>
