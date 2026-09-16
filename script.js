@@ -61,7 +61,14 @@ function renderCards() {
         cardElement.innerHTML = `
             <h3>${card.name}</h3>
             <p>Buy Price: $${Number(card.buyPrice).toFixed(2)}</p>
-            <p>Status: ${card.status === "sold" ? "Sold" : "For Sale"}</p>
+            <p>
+                Status:
+                <span class="card-status ${
+                    card.status === "sold" ? "status-sold" : "status-for-sale"
+            }">
+                ${card.status === "sold" ? "Sold" : "For Sale"}
+        </span>
+    </p>
             <p>Worth Grading: ${card.grading}</p>
 
             ${
