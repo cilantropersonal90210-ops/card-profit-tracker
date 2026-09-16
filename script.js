@@ -37,18 +37,7 @@ function updateDashboard() {
 }
 
 function renderCards() {
-    const cardList = document.getElementById("cardList");
-
-    if (cards.length === 0) {
-        cardList.innerHTML = `
-            <div class="empty-message">
-                <h3>No cards yet</h3>
-                <p>Click "Add Card" to add your first card.</p>
-            </div>
-        `;
-
-        updateDashboard();
-        return;
+    addCardButton.addEventListener
     }
 
     cardList.innerHTML = "";
