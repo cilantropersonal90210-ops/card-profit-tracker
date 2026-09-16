@@ -212,3 +212,26 @@ font-size: 26px;
 .card-item button:hover {
     background: #1f2937;
 }
+
+.card-status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.status-sold {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-for-sale {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.card-profit {
+    font-size: 18px;
+    font-weight: bold;
+}
