@@ -10,30 +10,38 @@ function saveCards() {
 }
 
 function updateDashboard() {
-    document.getElementById("cardsTracked").textContent = cards.length;
+    const cardsTracked = document.getElementById("cardsTracked");
+    const cardsSold = document.getElementById("cardsSold");
+    const cardsForSale = document.getElementById("cardsForSale");
+    const totalSpent = document.getElementById("totalSpent");
+    const totalSales = document.getElementById("totalSales");
+    const totalProfit = document.getElementById("totalProfit");
 
     const soldCards = cards.filter(card => card.status === "sold");
     const forSaleCards = cards.filter(card => card.status === "for-sale");
 
-    document.getElementById("cardsSold").textContent = soldCards.length;
-    document.getElementById("cardsForSale").textContent = forSaleCards.length;
-
-    const totalSales = soldCards.reduce((total, card) => {
-        return total + card.salePrice;
+    const spent = cards.reduce((total, card) => {
+        return total + Number(card.buyPrice || 0);
     }, 0);
 
-    const totalProfit = soldCards.reduce((total, card) => {
-        return total + (card.salePrice - card.buyPrice);
+    const sales = soldCards.reduce((total, card) => {
+        return total + Number(card.salePrice || 0);
     }, 0);
 
-    document.getElementById("totalSpent").textXontent =
-        `$${totalSpent.toFixed(2)}`;
+    const profit = soldCards.reduce((total, card) => {
+        return total + (
+            Number(card.salePrice || 0) -
+            Number(card.buyPrice || 0)
+        );
+    }, 0);
 
-    document.getElementById("totalSales").textContent =
-        `$${totalSales.toFixed(2)}`;
-    
-    document.getElementById("totalProfit").textContent =
-        `$${totalProfit.toFixed(2)}`;
+    cardsTracked.textContent = cards.length;
+    cardsSold.textContent = soldCards.length;
+    cardsForSale.textContent = forSaleCards.length;
+
+    totalSpent.textContent = `$${spent.toFixed(2)}`;
+    totalSales.textContent = `$${sales.toFixed(2)}`;
+    totalProfit.textContent = `$${profit.toFixed(2)}`;
 }
 
 function renderCards() {
@@ -60,18 +68,29 @@ function renderCards() {
 
         cardElement.innerHTML = `
             <h3>${card.name}</h3>
-            <p>Buy Price: $${card.buyPrice.toFixed(2)}</p>
+            <p>Buy Price: $${Number(card.buyPrice).toFixed(2)}</p>
             <p>Status: ${card.status === "sold" ? "Sold" : "For Sale"}</p>
             <p>Worth Grading: ${card.grading}</p>
 
             ${
                 card.status === "sold"
-                    ? `<p>Sale Price: $${card.salePrice.toFixed(2)}</p>
-                       <p>Profit: $${(card.salePrice - card.buyPrice).toFixed(2)}</p>`
-                    : `<button onclick="sellCard('${card.id}')">Mark as Sold</button>`
+                    ? `
+                        <p>Sale Price: $${Number(card.salePrice).toFixed(2)}</p>
+                        <p>Profit: $${(
+                            Number(card.salePrice) -
+                            Number(card.buyPrice)
+                        ).toFixed(2)}</p>
+                    `
+                    : `
+                        <button onclick="sellCard('${card.id}')">
+                            Mark as Sold
+                        </button>
+                    `
             }
 
-            <button onclick="deleteCard('${card.id}')">Delete</button>
+            <button onclick="deleteCard('${card.id}')">
+                Delete
+            </button>
         `;
 
         cardList.appendChild(cardElement);
