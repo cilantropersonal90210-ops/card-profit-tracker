@@ -10,38 +10,42 @@ function saveCards() {
 }
 
 function updateDashboard() {
-    document.getElementById("cardsTracked").textContent = cards.length;
-
     const soldCards = cards.filter(card => card.status === "sold");
     const forSaleCards = cards.filter(card => card.status === "for-sale");
 
+    document.getElementById("cardsTracked").textContent = cards.length;
     document.getElementById("cardsSold").textContent = soldCards.length;
     document.getElementById("cardsForSale").textContent = forSaleCards.length;
 
-    let spent = 0;
-    let sales = 0;
+    let totalSpent = 0;
+    let totalSales = 0;
+    let soldCardCosts = 0;
 
     cards.forEach(card => {
-        spent += Number(card.buyPrice) || 0;
+        const buyPrice = Number(card.buyPrice) || 0;
+
+        totalSpent += buyPrice;
 
         if (card.status === "sold") {
-            sales += Number(card.salePrice) || 0;
+            const salePrice = Number(card.salePrice) || 0;
+
+            totalSales += salePrice;
+            soldCardCosts += buyPrice;
         }
     });
 
-    let soldSpent = 0;
+    // Profit only counts cards that have actually been sold.
+    const totalProfit = totalSales - soldCardCosts;
 
-    cards.forEach(card => {
-        if (card.status === "sold) {
-            soldSpent += Number(card.buyPrice) || 0;
-        }
-    });
+    document.getElementById("totalSpent").textContent =
+        "$" + totalSpent.toFixed(2);
 
-    const profit = sales - soldSpent;
+    document.getElementById("totalSales").textContent =
+        "$" + totalSales.toFixed(2);
 
-    document.getElementById("totalSpent").textContent = "$" + spent.toFixed(2);
-    document.getElementById("totalSales").tentContent = "$" + sales.toFixed(2);
-    document.getElementById("totalProfit").textContent = "$" + profit.toFixed(2);
+    document.getElementById("totalProfit").textContent =
+        "$" + totalProfit.toFixed(2);
+}
 
 function renderCards() {
     const cardList = document.getElementById("cardList");
@@ -87,6 +91,7 @@ function renderCards() {
                 card.status === "sold"
                     ? `
                         <p>Sale Price: $${Number(card.salePrice).toFixed(2)}</p>
+
                         <p class="card-profit">
                             Profit: $${(
                                 Number(card.salePrice) -
@@ -134,7 +139,9 @@ cardForm.addEventListener("submit", event => {
     event.preventDefault();
 
     const name = document.getElementById("cardName").value.trim();
-    const buyPrice = Number(document.getElementById("buyPrice").value);
+    const buyPrice = Number(
+        document.getElementById("buyPrice").value
+    );
     const grading = document.getElementById("grading").value;
 
     const newCard = {
@@ -156,7 +163,9 @@ cardForm.addEventListener("submit", event => {
 });
 
 function sellCard(id) {
-    const salePrice = Number(prompt("Enter the sale price:"));
+    const salePrice = Number(
+        prompt("Enter the sale price:")
+    );
 
     if (isNaN(salePrice) || salePrice < 0) {
         alert("Please enter a valid sale price.");
@@ -183,19 +192,28 @@ function editCard(id) {
         return;
     }
 
-    const newName = prompt("Card name:", card.name);
+    const newName = prompt(
+        "Card name:",
+        card.name
+    );
 
     if (newName === null) {
         return;
     }
 
-    const newBuyPrice = prompt("Buy price:", card.buyPrice);
+    const newBuyPrice = prompt(
+        "Buy price:",
+        card.buyPrice
+    );
 
     if (newBuyPrice === null) {
         return;
     }
 
-    const newGrading = prompt("Worth grading? (yes, maybe, or no):", card.grading);
+    const newGrading = prompt(
+        "Worth grading? (yes, maybe, or no):",
+        card.grading
+    );
 
     if (newGrading === null) {
         return;
@@ -210,7 +228,9 @@ function editCard(id) {
 }
 
 function deleteCard(id) {
-    const confirmed = confirm("Are you sure you want to delete this card?");
+    const confirmed = confirm(
+        "Are you sure you want to delete this card?"
+    );
 
     if (!confirmed) {
         return;
