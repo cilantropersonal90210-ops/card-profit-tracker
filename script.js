@@ -167,6 +167,10 @@ const expectedSalePrice = Number(
     document.getElementById("expectedSalePrice").value
 );
 
+const ebayFee = Number(
+    document.getElementById("ebayFee").value
+);
+
 const grading = document.getElementById("grading").value;
 
     const newCard = {
