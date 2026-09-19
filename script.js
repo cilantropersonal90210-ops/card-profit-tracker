@@ -81,6 +81,8 @@ cardElement.innerHTML = `
         Number(card.buyPrice)
     ).toFixed(2)}</p>
 
+    <p>eBay Fee: ${Number(card.ebayFee).toFixed(2)}%</p>
+
     <p>Potential ROI: ${
     Number(card.buyPrice) > 0
         ? (
