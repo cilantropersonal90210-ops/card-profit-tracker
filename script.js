@@ -76,7 +76,7 @@ cardElement.innerHTML = `
 
     <p>Expected Sale Price: $${Number(card.expectedSalePrice).toFixed(2)}</p>
 
-<p>Potential Profit After eBay Fee: $${(
+<p>Potential Profit After Fees & Shipping: $${(
     Number(card.expectedSalePrice) -
     Number(card.buyPrice) -
     (
@@ -85,7 +85,8 @@ cardElement.innerHTML = `
     ) -
     (
         Number(card.expectedSalePrice) > 10 ? 0.40 : 0
-    )
+    ) -
+    Number(card.shippingCost)
 ).toFixed(2)}</p>
 
     <p>eBay Fee: ${Number(card.ebayFee).toFixed(2)}%</p>
