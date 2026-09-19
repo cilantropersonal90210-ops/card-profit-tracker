@@ -69,51 +69,51 @@ function renderCards() {
 
         cardElement.className = "card-item";
 
-        cardElement.innerHTML = `
-            <h3>${card.name}</h3>
+cardElement.innerHTML = `
+    <h3>${card.name}</h3>
 
-            <p>Buy Price: $${Number(card.buyPrice).toFixed(2)}</p>
+    <p>Buy Price: $${Number(card.buyPrice).toFixed(2)}</p>
 
-            <p>
-                Status:
-                <span class="card-status ${
-                    card.status === "sold"
-                        ? "status-sold"
-                        : "status-for-sale"
-                }">
-                    ${card.status === "sold" ? "Sold" : "For Sale"}
-                </span>
-            </p>
+    <p>
+        Status:
+        <span class="card-status ${
+            card.status === "sold"
+                ? "status-sold"
+                : "status-for-sale"
+        }">
+            ${card.status === "sold" ? "Sold" : "For Sale"}
+        </span>
+    </p>
 
-            <p>Worth Grading: ${card.grading}</p>
+    <p>Worth Grading: ${card.grading}</p>
 
-            ${
-                card.status === "sold"
-                    ? `
-                        <p>Sale Price: $${Number(card.salePrice).toFixed(2)}</p>
+    ${
+        card.status === "sold"
+            ? `
+                <p>Sale Price: $${Number(card.salePrice).toFixed(2)}</p>
 
-                        <p class="card-profit">
-                            Profit: $${(
-                                Number(card.salePrice) -
-                                Number(card.buyPrice)
-                            ).toFixed(2)}
-                        </p>
-                    `
-                    : `
-                         onclick="sellCard('${card.id}')">
-                            Mark as Sold
-                        </button>
-                    `
-            }
+                <p class="card-profit">
+                    Profit: $${(
+                        Number(card.salePrice) -
+                        Number(card.buyPrice)
+                    ).toFixed(2)}
+                </p>
+            `
+            : `
+                <button onclick="sellCard('${card.id}')">
+                    Mark as Sold
+                </button>
+            `
+    }
 
-             onclick="editCard('${card.id}')">
-                Edit
-            </button>
+    <button onclick="editCard('${card.id}')">
+        Edit
+    </button>
 
-             onclick="deleteCard('${card.id}')">
-                Delete
-            </button>
-        `;
+    <button onclick="deleteCard('${card.id}')">
+        Delete
+    </button>
+`;
 
         cardList.appendChild(cardElement);
     });
