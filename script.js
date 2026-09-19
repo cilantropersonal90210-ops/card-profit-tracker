@@ -220,13 +220,22 @@ const newCard = {
 
 function sellCard(id) {
     const salePrice = Number(
-        prompt("Enter the sale price:")
-    );
+    prompt("Enter the sale price:")
+);
 
-    if (isNaN(salePrice) || salePrice < 0) {
-        alert("Please enter a valid sale price.");
-        return;
-    }
+const shippingCost = Number(
+    prompt("Enter your actual shipping cost:")
+);
+
+    if (
+    isNaN(salePrice) ||
+    salePrice < 0 ||
+    isNaN(shippingCost) ||
+    shippingCost < 0
+) {
+    alert("Please enter valid sale and shipping prices.");
+    return;
+}
 
     const card = cards.find(card => card.id === id);
 
@@ -235,7 +244,8 @@ function sellCard(id) {
     }
 
     card.status = "sold";
-    card.salePrice = salePrice;
+card.salePrice = salePrice;
+card.shippingCost = shippingCost;
 
     saveCards();
     renderCards();
