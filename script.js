@@ -29,12 +29,19 @@ function updateDashboard() {
         }
     });
 
-    const profit = sales - spent;
+    let soldSpent = 0;
+
+    cards.forEach(card => {
+        if (card.status === "sold) {
+            soldSpent += Number(card.buyPrice) || 0;
+        }
+    });
+
+    const profit = sales - soldSpent;
 
     document.getElementById("totalSpent").textContent = "$" + spent.toFixed(2);
-    document.getElementById("totalSales").textContent = "$" + sales.toFixed(2);
+    document.getElementById("totalSales").tentContent = "$" + sales.toFixed(2);
     document.getElementById("totalProfit").textContent = "$" + profit.toFixed(2);
-}
 
 function renderCards() {
     const cardList = document.getElementById("cardList");
