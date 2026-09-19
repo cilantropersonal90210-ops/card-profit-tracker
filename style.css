@@ -235,3 +235,21 @@ font-size: 26px;
     font-size: 18px;
     font-weight: bold;
 }
+
+.card-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 20px;
+}
+
+.card-item h3 {
+    grid-column: 1 / -1;
+}
+
+.card-item p {
+    margin: 0;
+}
+
+.card-item button {
+    width: fit-content;
+}
