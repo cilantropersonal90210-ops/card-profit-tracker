@@ -151,13 +151,14 @@ const expectedSalePrice = Number(
 const grading = document.getElementById("grading").value;
 
     const newCard = {
-        id: Date.now().toString(),
-        name: name,
-        buyPrice: buyPrice,
-        grading: grading,
-        status: "for-sale",
-        salePrice: 0
-    };
+    id: Date.now().toString(),
+    name: name,
+    buyPrice: buyPrice,
+    expectedSalePrice: expectedSalePrice,
+    grading: grading,
+    status: "for-sale",
+    salePrice: 0
+};
 
     cards.push(newCard);
 
