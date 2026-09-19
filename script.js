@@ -97,13 +97,21 @@ cardElement.innerHTML = `
     Number(card.buyPrice) > 0
         ? (
             (
-                (Number(card.expectedSalePrice) -
-                Number(card.buyPrice)) /
-                Number(card.buyPrice)
-            ) * 100
+                Number(card.expectedSalePrice) -
+                Number(card.buyPrice) -
+                (
+                    Number(card.expectedSalePrice) *
+                    Number(card.ebayFee) / 100
+                ) -
+                (
+                    Number(card.expectedSalePrice) > 10 ? 0.40 : 0
+                ) -
+                (Number(card.shippingCost) || 0)
+            ) /
+            Number(card.buyPrice) * 100
         ).toFixed(1)
         : "0.0"
-    }%</p>
+}%</p>
 
     <p>
         Status:
