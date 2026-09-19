@@ -81,6 +81,18 @@ cardElement.innerHTML = `
         Number(card.buyPrice)
     ).toFixed(2)}</p>
 
+    <p>Potential ROI: ${
+    Number(card.buyPrice) > 0
+        ? (
+            (
+                (Number(card.expectedSalePrice) -
+                Number(card.buyPrice)) /
+                Number(card.buyPrice)
+            ) * 100
+        ).toFixed(1)
+        : "0.0"
+    }%</p>
+
     <p>
         Status:
         <span class="card-status ${
