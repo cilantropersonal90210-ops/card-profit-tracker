@@ -180,6 +180,10 @@ const ebayFee = Number(
     document.getElementById("ebayFee").value
 );
 
+const shippingCost = Number(
+    document.getElementById("shippingCost").value
+);
+
 const grading = document.getElementById("grading").value;
 
 const newCard = {
@@ -188,6 +192,7 @@ const newCard = {
     buyPrice: buyPrice,
     expectedSalePrice: expectedSalePrice,
     ebayFee: ebayFee,
+    shippingCost: shippingCost,
     grading: grading,
     status: "for-sale",
     salePrice: 0
