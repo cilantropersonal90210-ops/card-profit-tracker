@@ -91,6 +91,8 @@ cardElement.innerHTML = `
 
     <p>eBay Fee: ${Number(card.ebayFee).toFixed(2)}%</p>
 
+    <p>Shipping Cost: $${(Number(card.shippingCost) || 0).toFixed(2)}</p>
+
     <p>Potential ROI: ${
     Number(card.buyPrice) > 0
         ? (
