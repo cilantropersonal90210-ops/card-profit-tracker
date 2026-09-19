@@ -82,6 +82,9 @@ cardElement.innerHTML = `
     (
         Number(card.expectedSalePrice) *
         Number(card.ebayFee) / 100
+    ) -
+    (
+        Number(card.expectedSalePrice) > 10 ? 0.40 : 0
     )
 ).toFixed(2)}</p>
 
