@@ -27,11 +27,21 @@ function updateDashboard() {
         totalSpent += buyPrice;
 
         if (card.status === "sold") {
-            const salePrice = Number(card.salePrice) || 0;
+    const salePrice = Number(card.salePrice) || 0;
+    const ebayFee = Number(card.ebayFee) || 0;
+    const shippingCost = Number(card.shippingCost) || 0;
 
-            totalSales += salePrice;
-            soldCardCosts += buyPrice;
-        }
+    const ebayFees = salePrice * ebayFee / 100;
+    const orderFee = salePrice > 10 ? 0.40 : 0;
+
+    totalSales += salePrice;
+
+    soldCardCosts +=
+        buyPrice +
+        ebayFees +
+        orderFee +
+        shippingCost;
+}
     });
 
     // Profit only counts cards that have actually been sold.
