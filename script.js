@@ -121,9 +121,9 @@ function renderCards() {
     updateDashboard();
 }
 
-addCardButton.addEventListener("click", () => {
+addCardButton.onclick = function () {
     cardModal.classList.add("active");
-});
+};
 
 closeModal.addEventListener("click", () => {
     cardModal.classList.remove("active");
