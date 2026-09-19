@@ -100,17 +100,17 @@ function renderCards() {
                         </p>
                     `
                     : `
-                        <button onclick="sellCard('${card.id}')">
+                         onclick="sellCard('${card.id}')">
                             Mark as Sold
                         </button>
                     `
             }
 
-            <button onclick="editCard('${card.id}')">
+             onclick="editCard('${card.id}')">
                 Edit
             </button>
 
-            <button onclick="deleteCard('${card.id}')">
+             onclick="deleteCard('${card.id}')">
                 Delete
             </button>
         `;
