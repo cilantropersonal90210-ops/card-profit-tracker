@@ -173,11 +173,12 @@ const ebayFee = Number(
 
 const grading = document.getElementById("grading").value;
 
-    const newCard = {
+const newCard = {
     id: Date.now().toString(),
     name: name,
     buyPrice: buyPrice,
     expectedSalePrice: expectedSalePrice,
+    ebayFee: ebayFee,
     grading: grading,
     status: "for-sale",
     salePrice: 0
