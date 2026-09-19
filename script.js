@@ -139,10 +139,16 @@ cardForm.addEventListener("submit", event => {
     event.preventDefault();
 
     const name = document.getElementById("cardName").value.trim();
-    const buyPrice = Number(
-        document.getElementById("buyPrice").value
-    );
-    const grading = document.getElementById("grading").value;
+
+const buyPrice = Number(
+    document.getElementById("buyPrice").value
+);
+
+const expectedSalePrice = Number(
+    document.getElementById("expectedSalePrice").value
+);
+
+const grading = document.getElementById("grading").value;
 
     const newCard = {
         id: Date.now().toString(),
