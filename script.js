@@ -111,6 +111,12 @@ function updateDashboard() {
 function renderCards() {
     const cardList = document.getElementById("cardList");
 
+    cards.forEach(card => {
+        if (card.status === "for-sale") {
+            card.status = "unlisted";
+        }
+    });
+    
     const filteredCards = cards.filter(card => {
         if (currentTab === "unlisted") {
             return card.status === "unlisted";
