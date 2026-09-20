@@ -189,6 +189,7 @@ cardForm.addEventListener("submit", event => {
         buyPrice: buyPrice,
         grading: grading,
         status: "unlisted",
+        dateAdded: new Date().toLocaleDateString(),
         salePrice: 0,
         shippingCost: 0
     };
