@@ -1,5 +1,7 @@
 let cards = JSON.parse(localStorage.getItem("cards")) || [];
 
+let currentTab = "unlisted";
+
 const addCardButton = document.getElementById("addCardButton");
 const cardModal = document.getElementById("cardModal");
 const closeModal = document.getElementById("closeModal");
