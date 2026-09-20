@@ -193,27 +193,12 @@ const buyPrice = Number(
     document.getElementById("buyPrice").value
 );
 
-const expectedSalePrice = Number(
-    document.getElementById("expectedSalePrice").value
-);
-
-const ebayFee = Number(
-    document.getElementById("ebayFee").value
-);
-
-const shippingCost = Number(
-    document.getElementById("shippingCost").value
-);
-
 const grading = document.getElementById("grading").value;
 
 const newCard = {
     id: Date.now().toString(),
     name: name,
     buyPrice: buyPrice,
-    expectedSalePrice: expectedSalePrice,
-    ebayFee: ebayFee,
-    shippingCost: shippingCost,
     grading: grading,
     status: "for-sale",
     salePrice: 0
