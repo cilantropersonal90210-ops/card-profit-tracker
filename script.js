@@ -312,14 +312,28 @@ function showCardDetails(id) {
         <p><strong>Status:</strong> ${card.status}</p>
 
         ${
-    card.status === "listed"
-        ? `
-            <button onclick="markCardSold('${card.id}')">
-                Mark as Sold
-            </button>
-        `
-        : ""
-}
+            card.status === "sold"
+                ? `
+                    <p>
+                        <strong>Profit:</strong>
+                        $${(
+                            Number(card.salePrice || 0) -
+                            Number(card.buyPrice || 0)
+                        ).toFixed(2)}
+                    </p>
+                `
+            : ""
+        }
+
+        ${
+            card.status === "listed"
+                ? `
+                    <button onclick="markCardSold('${card.id}')">
+                        Mark as Sold
+                    </button>
+                `
+                : ""
+        }
     `;
 
     detailsModal.classList.add("active");
