@@ -128,6 +128,16 @@ function renderCards() {
                 ${card.dateAdded || "N/A"}
             </p>
 
+        ${
+            currentTab === "unlisted"
+                ? `
+                    <button onclick="listCard('${card.id}')">
+                        List Card
+                    </button>
+        `
+                : ""
+        }
+           
             <button onclick="editCard('${card.id}')">
                 Edit
             </button>
