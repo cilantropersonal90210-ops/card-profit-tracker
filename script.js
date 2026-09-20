@@ -240,12 +240,17 @@ cardForm.addEventListener("submit", event => {
         document.getElementById("buyPrice").value
     );
 
+    const listingPrice = Number(
+        document.getElementById("listingPrice").value
+    ) || 0;
+
     const grading = document.getElementById("grading").value;
 
     const newCard = {
         id: Date.now().toString(),
         name: name,
         buyPrice: buyPrice,
+        listingPrice: listingPrice,
         grading: grading,
         status: "unlisted",
         dateAdded: new Date().toLocaleDateString(),
