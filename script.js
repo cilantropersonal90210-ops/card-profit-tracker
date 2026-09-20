@@ -11,6 +11,19 @@ const cardForm = document.getElementById("cardForm");
 const unlistedTab = document.getElementById("unlistedTab");
 const listedTab = document.getElementById("listedTab");
 
+const detailsModal = document.getElementById("detailsModal");
+const closeDetailsModal = document.getElementById("closeDetailsModal");
+
+closeDetailsModal.addEventListener("click", () => {
+    detailsModal.classList.remove("active");
+});
+
+detailsModal.addEventListener("click", event => {
+    if (event.target === detailsModal) {
+        detailsModal.classList.remove("active");
+    }
+});
+
 console.log("Unlisted button:", unlistedTab);
 console.log("Listed button:", listedTab);
 
@@ -251,13 +264,24 @@ function showCardDetails(id) {
         return;
     }
 
-    alert(
-        "Card: " + card.name +
-        "\nBuy Price: $" + Number(card.buyPrice || 0).toFixed(2) +
-        "\nWorth Grading: " + card.grading +
-        "\nDate Added: " + (card.dateAdded || "N/A") +
-        "\nDate Listed: " + (card.dateListed || "N/A")
-    );
+    const detailsModal = document.getElementById("detailsModal");
+    const cardDetails = document.getElementById("cardDetails");
+
+    cardDetails.innerHTML = `
+        <h3>${card.name}</h3>
+
+        <p><strong>Buy Price:</strong> $${Number(card.buyPrice || 0).toFixed(2)}</p>
+
+        <p><strong>Worth Grading:</strong> ${card.grading}</p>
+
+        <p><strong>Date Added:</strong> ${card.dateAdded || "N/A"}</p>
+
+        <p><strong>Date Listed:</strong> ${card.dateListed || "N/A"}</p>
+
+        <p><strong>Status:</strong> ${card.status}</p>
+    `;
+
+    detailsModal.classList.add("active");
 }
 
 function listCard(id) {
