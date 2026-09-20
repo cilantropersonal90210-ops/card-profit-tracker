@@ -11,6 +11,9 @@ const cardForm = document.getElementById("cardForm");
 const unlistedTab = document.getElementById("unlistedTab");
 const listedTab = document.getElementById("listedTab");
 
+console.log("Unlisted button:", unlistedTab);
+console.log("Listed button:", listedTab);
+
 unlistedTab.addEventListener("click", () => {
     currentTab = "unlisted";
 
