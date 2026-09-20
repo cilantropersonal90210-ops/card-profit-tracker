@@ -11,6 +11,8 @@ const cardForm = document.getElementById("cardForm");
 const unlistedTab = document.getElementById("unlistedTab");
 const listedTab = document.getElementById("listedTab");
 
+const soldTab = document.getElementById("soldTab");
+
 const detailsModal = document.getElementById("detailsModal");
 const closeDetailsModal = document.getElementById("closeDetailsModal");
 
@@ -41,6 +43,16 @@ listedTab.addEventListener("click", () => {
 
     listedTab.classList.add("active");
     unlistedTab.classList.remove("active");
+
+    renderCards();
+});
+
+soldTab.addEventListener("click", () => {
+    currentTab = "sold";
+
+    soldTab.classList.add("active");
+    unlistedTab.classList.remove("active");
+    listedTab.classList.remove("active");
 
     renderCards();
 });
@@ -106,6 +118,10 @@ function renderCards() {
 
         if (currentTab === "listed") {
             return card.status === "listed";
+        }
+
+        if (currentTab === "sold") {
+            return card.status === "sold";
         }
 
         return false;
