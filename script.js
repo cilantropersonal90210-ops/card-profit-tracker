@@ -27,24 +27,23 @@ function updateDashboard() {
         totalSpent += buyPrice;
 
         if (card.status === "sold") {
-    const salePrice = Number(card.salePrice) || 0;
-    const ebayFee = Number(card.ebayFee) || 0;
-    const shippingCost = Number(card.shippingCost) || 0;
+            const salePrice = Number(card.salePrice) || 0;
+            const ebayFee = Number(card.ebayFee) || 0;
+            const shippingCost = Number(card.shippingCost) || 0;
 
-    const ebayFees = salePrice * ebayFee / 100;
-    const orderFee = salePrice > 10 ? 0.40 : 0;
+            const ebayFees = salePrice * ebayFee / 100;
+            const orderFee = salePrice > 10 ? 0.40 : 0;
 
-    totalSales += salePrice;
+            totalSales += salePrice;
 
-    soldCardCosts +=
-        buyPrice +
-        ebayFees +
-        orderFee +
-        shippingCost;
-}
+            soldCardCosts +=
+                buyPrice +
+                ebayFees +
+                orderFee +
+                shippingCost;
+        }
     });
 
-    // Profit only counts cards that have actually been sold.
     const totalProfit = totalSales - soldCardCosts;
 
     document.getElementById("totalSpent").textContent =
@@ -79,90 +78,54 @@ function renderCards() {
 
         cardElement.className = "card-item";
 
-cardElement.innerHTML = `
-    <h3>${card.name}</h3>
+        cardElement.innerHTML = `
+            <h3>${card.name}</h3>
 
-    <p>Buy Price: $${Number(card.buyPrice).toFixed(2)}</p>
+            <p>Buy Price: $${Number(card.buyPrice || 0).toFixed(2)}</p>
 
-    <p>Expected Sale Price: $${Number(card.expectedSalePrice).toFixed(2)}</p>
+            <p>Status:
+                <span class="card-status ${
+                    card.status === "sold"
+                        ? "status-sold"
+                        : "status-for-sale"
+                }">
+                    ${card.status === "sold" ? "Sold" : "For Sale"}
+                </span>
+            </p>
 
-<p>Potential Profit After Fees & Shipping: $${(
-    Number(card.expectedSalePrice) -
-    Number(card.buyPrice) -
-    (
-        Number(card.expectedSalePrice) *
-        Number(card.ebayFee) / 100
-    ) -
-    (
-        Number(card.expectedSalePrice) > 10 ? 0.40 : 0
-    ) -
-    Number(card.shippingCost)
-).toFixed(2)}</p>
+            <p>Worth Grading: ${card.grading}</p>
 
-    <p>eBay Fee: ${Number(card.ebayFee).toFixed(2)}%</p>
+            ${
+                card.status === "sold"
+                    ? `
+                        <p>Sale Price: $${Number(card.salePrice || 0).toFixed(2)}</p>
 
-    <p>Shipping Cost: $${(Number(card.shippingCost) || 0).toFixed(2)}</p>
+                        <p>Shipping: $${(
+                            Number(card.shippingCost) || 0
+                        ).toFixed(2)}</p>
 
-    <p>Potential ROI: ${
-    Number(card.buyPrice) > 0
-        ? (
-            (
-                Number(card.expectedSalePrice) -
-                Number(card.buyPrice) -
-                (
-                    Number(card.expectedSalePrice) *
-                    Number(card.ebayFee) / 100
-                ) -
-                (
-                    Number(card.expectedSalePrice) > 10 ? 0.40 : 0
-                ) -
-                (Number(card.shippingCost) || 0)
-            ) /
-            Number(card.buyPrice) * 100
-        ).toFixed(1)
-        : "0.0"
-}%</p>
+                        <p class="card-profit">
+                            Profit: $${(
+                                Number(card.salePrice || 0) -
+                                Number(card.buyPrice || 0)
+                            ).toFixed(2)}
+                        </p>
+                    `
+                    : `
+                        <button onclick="sellCard('${card.id}')">
+                            Mark as Sold
+                        </button>
+                    `
+            }
 
-    <p>
-        Status:
-        <span class="card-status ${
-            card.status === "sold"
-                ? "status-sold"
-                : "status-for-sale"
-        }">
-            ${card.status === "sold" ? "Sold" : "For Sale"}
-        </span>
-    </p>
+            <button onclick="editCard('${card.id}')">
+                Edit
+            </button>
 
-    <p>Worth Grading: ${card.grading}</p>
-
-    ${
-        card.status === "sold"
-            ? `
-                <p>Sale Price: $${Number(card.salePrice).toFixed(2)}</p>
-
-                <p class="card-profit">
-                    Profit: $${(
-                        Number(card.salePrice) -
-                        Number(card.buyPrice)
-                    ).toFixed(2)}
-                </p>
-            `
-            : `
-                <button onclick="sellCard('${card.id}')">
-                    Mark as Sold
-                </button>
-            `
-    }
-
-    <button onclick="editCard('${card.id}')">
-        Edit
-    </button>
-
-    <button onclick="deleteCard('${card.id}')">
-        Delete
-    </button>
-`;
+            <button onclick="deleteCard('${card.id}')">
+                Delete
+            </button>
+        `;
 
         cardList.appendChild(cardElement);
     });
@@ -189,20 +152,21 @@ cardForm.addEventListener("submit", event => {
 
     const name = document.getElementById("cardName").value.trim();
 
-const buyPrice = Number(
-    document.getElementById("buyPrice").value
-);
+    const buyPrice = Number(
+        document.getElementById("buyPrice").value
+    );
 
-const grading = document.getElementById("grading").value;
+    const grading = document.getElementById("grading").value;
 
-const newCard = {
-    id: Date.now().toString(),
-    name: name,
-    buyPrice: buyPrice,
-    grading: grading,
-    status: "for-sale",
-    salePrice: 0
-};
+    const newCard = {
+        id: Date.now().toString(),
+        name: name,
+        buyPrice: buyPrice,
+        grading: grading,
+        status: "for-sale",
+        salePrice: 0,
+        shippingCost: 0
+    };
 
     cards.push(newCard);
 
@@ -215,22 +179,22 @@ const newCard = {
 
 function sellCard(id) {
     const salePrice = Number(
-    prompt("Enter the sale price:")
-);
+        prompt("Enter the sale price:")
+    );
 
-const shippingCost = Number(
-    prompt("Enter your actual shipping cost:")
-);
+    const shippingCost = Number(
+        prompt("Enter your actual shipping cost:")
+    );
 
     if (
-    isNaN(salePrice) ||
-    salePrice < 0 ||
-    isNaN(shippingCost) ||
-    shippingCost < 0
-) {
-    alert("Please enter valid sale and shipping prices.");
-    return;
-}
+        isNaN(salePrice) ||
+        salePrice < 0 ||
+        isNaN(shippingCost) ||
+        shippingCost < 0
+    ) {
+        alert("Please enter valid sale and shipping prices.");
+        return;
+    }
 
     const card = cards.find(card => card.id === id);
 
@@ -239,8 +203,8 @@ const shippingCost = Number(
     }
 
     card.status = "sold";
-card.salePrice = salePrice;
-card.shippingCost = shippingCost;
+    card.salePrice = salePrice;
+    card.shippingCost = shippingCost;
 
     saveCards();
     renderCards();
