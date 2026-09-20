@@ -157,18 +157,33 @@ cardElement.onclick = function(event) {
 cardElement.innerHTML = `
     <h3>${card.name}</h3>
 
-    <p>
-        ${
-            currentTab === "unlisted"
-                ? "Date Added"
-                : "Date Listed"
-        }:
-        ${
-            currentTab === "unlisted"
-                ? (card.dateAdded || "N/A")
-                : (card.dateListed || "N/A")
-        }
-    </p>
+   <p>
+    ${
+        currentTab === "unlisted"
+            ? "Date Added"
+            : currentTab === "listed"
+                ? "Date Listed"
+                : "Date Sold"
+    }:
+    ${
+        currentTab === "unlisted"
+            ? (card.dateAdded || "N/A")
+            : currentTab === "listed"
+                ? (card.dateListed || "N/A")
+                : (card.dateSold || "N/A")
+    }
+</p>
+
+${
+    currentTab === "sold"
+        ? `
+            <p>
+                <strong>Sold for:</strong>
+                $${Number(card.salePrice || 0).toFixed(2)}
+            </p>
+        `
+        : ""
+}
 
     ${
         currentTab === "unlisted"
