@@ -87,14 +87,12 @@ function updateDashboard() {
             const shippingCost = Number(card.shippingCost) || 0;
 
             const ebayFees = salePrice * ebayFee / 100;
-            const orderFee = salePrice > 10 ? 0.40 : 0;
 
             totalSales += salePrice;
 
             soldCardCosts +=
                 buyPrice +
                 ebayFees +
-                orderFee +
                 shippingCost;
         }
     });
