@@ -237,19 +237,14 @@ font-size: 26px;
 }
 
 .card-item {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px 20px;
-}
-
-.card-item h3 {
-    grid-column: 1 / -1;
+    display: block;
 }
 
 .card-item p {
-    margin: 0;
+    margin: 10px 0;
 }
 
 .card-item button {
     width: fit-content;
+    margin-right: 8px;
 }
