@@ -115,7 +115,15 @@ function renderCards() {
     filteredCards.forEach(card => {
         const cardElement = document.createElement("div");
 
-        cardElement.className = "card-item";
+cardElement.className = "card-item";
+
+cardElement.onclick = function(event) {
+    if (event.target.tagName === "BUTTON") {
+        return;
+    }
+
+    showCardDetails(card.id);
+};
 
 cardElement.innerHTML = `
     <h3>${card.name}</h3>
@@ -234,6 +242,22 @@ function sellCard(id) {
 
     saveCards();
     renderCards();
+}
+
+function showCardDetails(id) {
+    const card = cards.find(card => card.id === id);
+
+    if (!card) {
+        return;
+    }
+
+    alert(
+        "Card: " + card.name +
+        "\nBuy Price: $" + Number(card.buyPrice || 0).toFixed(2) +
+        "\nWorth Grading: " + card.grading +
+        "\nDate Added: " + (card.dateAdded || "N/A") +
+        "\nDate Listed: " + (card.dateListed || "N/A")
+    );
 }
 
 function listCard(id) {
