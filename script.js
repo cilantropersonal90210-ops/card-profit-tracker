@@ -1,11 +1,31 @@
 let cards = JSON.parse(localStorage.getItem("cards")) || [];
-
 let currentTab = "unlisted";
 
 const addCardButton = document.getElementById("addCardButton");
 const cardModal = document.getElementById("cardModal");
 const closeModal = document.getElementById("closeModal");
 const cardForm = document.getElementById("cardForm");
+
+const unlistedTab = document.getElementById("unlistedTab");
+const listedTab = document.getElementById("listedTab");
+
+unlistedTab.addEventListener("click", () => {
+    currentTab = "unlisted";
+
+    unlistedTab.classList.add("active");
+    listedTab.classList.remove("active");
+
+    renderCards();
+});
+
+listedTab.addEventListener("click", () => {
+    currentTab = "listed";
+
+    listedTab.classList.add("active");
+    unlistedTab.classList.remove("active");
+
+    renderCards();
+});
 
 function saveCards() {
     localStorage.setItem("cards", JSON.stringify(cards));
