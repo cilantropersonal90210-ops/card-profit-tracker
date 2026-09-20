@@ -61,11 +61,23 @@ function updateDashboard() {
 function renderCards() {
     const cardList = document.getElementById("cardList");
 
-    if (cards.length === 0) {
+    const filteredCards = cards.filter(card => {
+        if (currentTab === "unlisted") {
+            return card.status === "unlisted";
+        }
+
+        if (currentTab === "listed") {
+            return card.status === "listed";
+        }
+
+        return false;
+    });
+
+    if (filteredCards.length === 0) {
         cardList.innerHTML = `
             <div class="empty-message">
-                <h3>No cards yet</h3>
-                <p>Click "Add Card" to add your first card.</p>
+                <h3>No cards here</h3>
+                <p>Add a card or move a card into this section.</p>
             </div>
         `;
 
@@ -75,7 +87,7 @@ function renderCards() {
 
     cardList.innerHTML = "";
 
-    cards.forEach(card => {
+    filteredCards.forEach(card => {
         const cardElement = document.createElement("div");
 
         cardElement.className = "card-item";
@@ -83,42 +95,13 @@ function renderCards() {
         cardElement.innerHTML = `
             <h3>${card.name}</h3>
 
-            <p>Buy Price: $${Number(card.buyPrice || 0).toFixed(2)}</p>
-
-            <p>Status:
-                <span class="card-status ${
-                    card.status === "sold"
-                        ? "status-sold"
-                        : "status-for-sale"
-                }">
-                    ${card.status === "sold" ? "Sold" : "For Sale"}
-                </span>
+            <p>
+                ${currentTab === "unlisted"
+                    ? "Date Added"
+                    : "Date Listed"
+                }:
+                ${card.dateAdded || "N/A"}
             </p>
-
-            <p>Worth Grading: ${card.grading}</p>
-
-            ${
-                card.status === "sold"
-                    ? `
-                        <p>Sale Price: $${Number(card.salePrice || 0).toFixed(2)}</p>
-
-                        <p>Shipping: $${(
-                            Number(card.shippingCost) || 0
-                        ).toFixed(2)}</p>
-
-                        <p class="card-profit">
-                            Profit: $${(
-                                Number(card.salePrice || 0) -
-                                Number(card.buyPrice || 0)
-                            ).toFixed(2)}
-                        </p>
-                    `
-                    : `
-                        <button onclick="sellCard('${card.id}')">
-                            Mark as Sold
-                        </button>
-                    `
-            }
 
             <button onclick="editCard('${card.id}')">
                 Edit
