@@ -279,6 +279,16 @@ function showCardDetails(id) {
         <p><strong>Date Listed:</strong> ${card.dateListed || "N/A"}</p>
 
         <p><strong>Status:</strong> ${card.status}</p>
+
+        ${
+    card.status === "listed"
+        ? `
+            <button onclick="markCardSold('${card.id}')">
+                Mark as Sold
+            </button>
+        `
+        : ""
+}
     `;
 
     detailsModal.classList.add("active");
