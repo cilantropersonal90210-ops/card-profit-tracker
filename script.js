@@ -63,7 +63,10 @@ function saveCards() {
 
 function updateDashboard() {
     const soldCards = cards.filter(card => card.status === "sold");
-    const forSaleCards = cards.filter(card => card.status === "for-sale");
+    
+    const forSaleCards = cards.filter(
+        card => card.status === "unlisted" || card.status === "listed"
+    );
 
     document.getElementById("cardsTracked").textContent = cards.length;
     document.getElementById("cardsSold").textContent = soldCards.length;
