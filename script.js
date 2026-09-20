@@ -294,6 +294,32 @@ function showCardDetails(id) {
     detailsModal.classList.add("active");
 }
 
+function markCardSold(id) {
+    const card = cards.find(card => card.id === id);
+
+    if (!card) {
+        return;
+    }
+
+    const salePrice = Number(
+        prompt("Enter the sale price:")
+    );
+
+    if (isNaN(salePrice) || salePrice < 0) {
+        alert("Please enter a valid sale price.");
+        return;
+    }
+
+    card.status = "sold";
+    card.salePrice = salePrice;
+    card.dateSold = new Date().toLocaleDateString();
+
+    saveCards();
+    detailsModal.classList.remove("active");
+    renderCards();
+    updateDashboard();
+}
+
 function listCard(id) {
     const card = cards.find(card => card.id === id);
 
