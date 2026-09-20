@@ -301,19 +301,45 @@ function showCardDetails(id) {
     cardDetails.innerHTML = `
         <h3>${card.name}</h3>
 
-        <p><strong>Buy Price:</strong> $${Number(card.buyPrice || 0).toFixed(2)}</p>
+        <p>
+            <strong>Buy Price:</strong>
+            $${Number(card.buyPrice || 0).toFixed(2)}
+        </p>
 
-        <p><strong>Worth Grading:</strong> ${card.grading}</p>
+        <p>
+            <strong>Worth Grading:</strong>
+            ${card.grading}
+        </p>
 
-        <p><strong>Date Added:</strong> ${card.dateAdded || "N/A"}</p>
+        <p>
+            <strong>Date Added:</strong>
+            ${card.dateAdded || "N/A"}
+        </p>
 
-        <p><strong>Date Listed:</strong> ${card.dateListed || "N/A"}</p>
-
-        <p><strong>Status:</strong> ${card.status}</p>
+        ${
+            card.status === "listed" || card.status === "sold"
+                ? `
+                    <p>
+                        <strong>Date Listed:</strong>
+                        ${card.dateListed || "N/A"}
+                    </p>
+                `
+                : ""
+        }
 
         ${
             card.status === "sold"
                 ? `
+                    <p>
+                        <strong>Date Sold:</strong>
+                        ${card.dateSold || "N/A"}
+                    </p>
+
+                    <p>
+                        <strong>Sold For:</strong>
+                        $${Number(card.salePrice || 0).toFixed(2)}
+                    </p>
+
                     <p>
                         <strong>Profit:</strong>
                         $${(
@@ -322,8 +348,13 @@ function showCardDetails(id) {
                         ).toFixed(2)}
                     </p>
                 `
-            : ""
+                : ""
         }
+
+        <p>
+            <strong>Status:</strong>
+            ${card.status}
+        </p>
 
         ${
             card.status === "listed"
