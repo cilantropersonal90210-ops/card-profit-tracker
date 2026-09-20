@@ -173,7 +173,7 @@ cardForm.addEventListener("submit", event => {
         name: name,
         buyPrice: buyPrice,
         grading: grading,
-        status: "for-sale",
+        status: "unlisted",
         salePrice: 0,
         shippingCost: 0
     };
