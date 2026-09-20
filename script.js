@@ -230,6 +230,20 @@ function sellCard(id) {
     renderCards();
 }
 
+function listCard(id) {
+    const card = cards.find(card => card.id === id);
+
+    if (!card) {
+        return;
+    }
+
+    card.status = "listed";
+    card.dateListed = new Date().toLocaleDateString();
+
+    saveCards();
+    renderCards();
+}
+
 function editCard(id) {
     const card = cards.find(card => card.id === id);
 
