@@ -117,35 +117,40 @@ function renderCards() {
 
         cardElement.className = "card-item";
 
-        cardElement.innerHTML = `
-            <h3>${card.name}</h3>
+cardElement.innerHTML = `
+    <h3>${card.name}</h3>
 
-            <p>
-                ${currentTab === "unlisted"
-                    ? "Date Added"
-                    : "Date Listed"
-                }:
-                ${card.dateAdded || "N/A"}
-            </p>
-
+    <p>
         ${
             currentTab === "unlisted"
-                ? `
-                    <button onclick="listCard('${card.id}')">
-                        List Card
-                    </button>
-        `
-                : ""
+                ? "Date Added"
+                : "Date Listed"
+        }:
+        ${
+            currentTab === "unlisted"
+                ? (card.dateAdded || "N/A")
+                : (card.dateListed || "N/A")
         }
-           
-            <button onclick="editCard('${card.id}')">
-                Edit
-            </button>
+    </p>
 
-            <button onclick="deleteCard('${card.id}')">
-                Delete
-            </button>
-        `;
+    ${
+        currentTab === "unlisted"
+            ? `
+                <button onclick="listCard('${card.id}')">
+                    List Card
+                </button>
+            `
+            : ""
+    }
+
+    <button onclick="editCard('${card.id}')">
+        Edit
+    </button>
+
+    <button onclick="deleteCard('${card.id}')">
+        Delete
+    </button>
+`;
 
         cardList.appendChild(cardElement);
     });
