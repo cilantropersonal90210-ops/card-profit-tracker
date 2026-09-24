@@ -352,13 +352,18 @@ function showCardDetails(id) {
                         $${Number(card.salePrice || 0).toFixed(2)}
                     </p>
 
-                    <p>
-                        <strong>Profit:</strong>
-                        $${(
-                            Number(card.salePrice || 0) -
-                            Number(card.buyPrice || 0)
-                        ).toFixed(2)}
-                    </p>
+                   <p>
+    <strong>Profit:</strong>
+    $${(
+        Number(card.salePrice || 0) -
+        Number(card.buyPrice || 0) -
+        (
+            Number(card.salePrice || 0) *
+            Number(card.ebayFee || 0) / 100
+        ) -
+        Number(card.shippingCost || 0)
+    ).toFixed(2)}
+</p>
                 `
                 : ""
         }
