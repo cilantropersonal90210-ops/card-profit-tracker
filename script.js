@@ -485,3 +485,15 @@ function deleteCard(id) {
 }
 
 renderCards();
+
+
+
+fetch("http://localhost:3000/api/test")
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.error("Backend connection failed:", error);
+    });
+
